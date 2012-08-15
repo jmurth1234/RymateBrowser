@@ -142,16 +142,25 @@ namespace RymateBrowser
 
         private void browserTabs_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            TabItem tab = (TabItem)browserTabs.SelectedItem;
-            WebControl web = (WebControl)tab.Content;
-            if (web.Title != null)
+            if (browserTabs.Items.IsEmpty)
             {
-                MyWindow.Title = web.Title;
+                this.Close();
+                Environment.Exit(0);
             }
 
-            if (web.Source != null)
+            TabItem tab = (TabItem)browserTabs.SelectedItem;
+            WebControl web = (WebControl)tab.Content;
+            if (web != null)
             {
-                textBox1.Text = web.Source.ToString();
+                if (web.Title != null)
+                {
+                    MyWindow.Title = web.Title;
+                }
+
+                if (web.Source != null)
+                {
+                    textBox1.Text = web.Source.ToString();
+                }
             }
         }
 
@@ -164,6 +173,7 @@ namespace RymateBrowser
                 if (tabControl != null)
                     tabControl.Items.Remove(tabItem);
             }
+
         }
 
     }
