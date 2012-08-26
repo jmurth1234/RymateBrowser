@@ -152,30 +152,33 @@ namespace RymateBrowser
 
         private void browserTabs_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (browserTabs.Items.IsEmpty)
+            if (e.Source is TabControl)
             {
-                this.Close();
-                Environment.Exit(0);
-            }
-
-            CloseableTabItem tab = (CloseableTabItem)browserTabs.SelectedItem;
-            int TabId = tab.GetBrowserTabId();
-            WebControl web = tabs[TabId] as WebControl;
-
-            if (web != null)
-            {
-                if (web.Title != null)
+                if (browserTabs.Items.IsEmpty)
                 {
-                    MyWindow.Title = web.Title;
+                    this.Close();
+                    Environment.Exit(0);
                 }
 
-                if (web.Source != null)
-                {
-                    textBox1.Text = web.Source.ToString();
-                }
+                CloseableTabItem tab = (CloseableTabItem)browserTabs.SelectedItem;
+                int TabId = tab.GetBrowserTabId();
+                WebControl web = tabs[TabId] as WebControl;
 
-                web.Width = tab.Width;
-                web.Height = tab.Height;
+                if (web != null)
+                {
+                    if (web.Title != null)
+                    {
+                        MyWindow.Title = web.Title;
+                    }
+
+                    if (web.Source != null)
+                    {
+                        textBox1.Text = web.Source.ToString();
+                    }
+
+                    web.Width = tab.Width;
+                    web.Height = tab.Height;
+                }
             }
         }
 
@@ -186,7 +189,14 @@ namespace RymateBrowser
             {
                 TabControl tabControl = tabItem.Parent as TabControl;
                 if (tabControl != null)
+                {
+                    if (tabControl.SelectedItem == tabItem)
+                    {
+                        tabControl.SelectedIndex = tabControl.SelectedIndex - 1;
+                    }
+
                     tabControl.Items.Remove(tabItem);
+                }
             }
 
         }
