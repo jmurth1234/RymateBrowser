@@ -149,7 +149,9 @@ namespace RymateBrowser
             }
 
             TabItem tab = (TabItem)browserTabs.SelectedItem;
+
             WebControl web = (WebControl)tab.Content;
+
             if (web != null)
             {
                 if (web.Title != null)
@@ -161,6 +163,9 @@ namespace RymateBrowser
                 {
                     textBox1.Text = web.Source.ToString();
                 }
+
+                web.Width = tab.Width;
+                web.Height = tab.Height;
             }
         }
 

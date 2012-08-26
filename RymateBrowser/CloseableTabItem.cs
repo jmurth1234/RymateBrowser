@@ -50,6 +50,9 @@ namespace RymateBrowser
     /// </summary>
     public class CloseableTabItem : TabItem
     {
+        //the id of the browser tab
+        private int BrowserTabId;
+
         static CloseableTabItem()
         {
             //This OverrideMetadata call tells the system that this element wants to provide a style that is different than its base class.
@@ -80,6 +83,11 @@ namespace RymateBrowser
         void closeButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             this.RaiseEvent(new RoutedEventArgs(CloseTabEvent, this));
+        }
+
+        public int GetBrowserTabId()
+        {
+            return BrowserTabId;
         }
     }
 }
