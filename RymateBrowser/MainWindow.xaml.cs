@@ -101,9 +101,13 @@ namespace RymateBrowser
         {
             if (e.Key == Key.Enter)
             {
-                if (!textBox1.Text.Contains(" "))
+                if (!textBox1.Text.Contains(" ") && textBox1.Text.StartsWith("http"))
                 {
                     getCurrentBrowser().LoadURL(textBox1.Text);
+                }
+                else if (!textBox1.Text.Contains(" ") && !textBox1.Text.StartsWith("http"))
+                {
+                    getCurrentBrowser().LoadURL("http://" + textBox1.Text);
                 }
                 else
                 {
