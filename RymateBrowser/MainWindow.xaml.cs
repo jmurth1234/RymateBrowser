@@ -158,9 +158,9 @@ namespace RymateBrowser
                 Environment.Exit(0);
             }
 
-            TabItem tab = (TabItem)browserTabs.SelectedItem;
-
-            WebControl web = (WebControl)tab.Content;
+            CloseableTabItem tab = (CloseableTabItem)browserTabs.SelectedItem;
+            int TabId = tab.GetBrowserTabId();
+            WebControl web = (WebControl)tabs[TabId];
 
             if (web != null)
             {
