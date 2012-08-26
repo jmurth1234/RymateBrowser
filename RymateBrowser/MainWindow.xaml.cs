@@ -160,7 +160,7 @@ namespace RymateBrowser
 
             CloseableTabItem tab = (CloseableTabItem)browserTabs.SelectedItem;
             int TabId = tab.GetBrowserTabId();
-            WebControl web = (WebControl)tabs[TabId];
+            WebControl web = tabs[TabId] as WebControl;
 
             if (web != null)
             {
