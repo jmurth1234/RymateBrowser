@@ -89,5 +89,10 @@ namespace RymateBrowser
         {
             return BrowserTabId;
         }
+
+        public void SetBrowserTabId(int i)
+        {
+            BrowserTabId = i;
+        }
     }
 }

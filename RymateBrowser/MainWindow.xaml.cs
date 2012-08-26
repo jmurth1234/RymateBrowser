@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using System.Runtime.InteropServices;
 using System.Windows.Interop;
 using Awesomium.Windows.Controls;
+using System.Collections;
 
 namespace RymateBrowser
 {
@@ -28,7 +29,9 @@ namespace RymateBrowser
         public static extern int DwmExtendFrameIntoClientArea(IntPtr hWnd, ref MARGINS pMargins);
 
         [DllImport("dwmapi.dll", PreserveSig = false)]
-        public static extern bool DwmIsCompositionEnabled(); 
+        public static extern bool DwmIsCompositionEnabled();
+
+        Hashtable tabs = new Hashtable();
 
         public MainWindow()
         {
@@ -37,13 +40,20 @@ namespace RymateBrowser
 
         private void addNewTab()
         {
+            //Lets generate a random ID for the tab. It should be good for about 10000 tabs a session.
+            Random random = new Random();
+            int randomNumber = random.Next(0, 10000);
+
             CloseableTabItem item = new CloseableTabItem();
             item.Header = "New Tab";
+
+            item.SetBrowserTabId(randomNumber);
             WebControl ctrl = new WebControl();
             item.Content = ctrl;
             ctrl.Width = item.Width;
             ctrl.Height = item.Height;
             ctrl.LoadURL("http://google.com");
+            tabs[randomNumber] = item;
             browserTabs.Items.Add(item);
 
             ctrl.PageContentsReceived += 
